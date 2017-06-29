@@ -24,7 +24,10 @@ aplikacji. Podstawowe zalety:
     jej gaszenia, a jeżeli ta aktualizacja spowoduje jakieś nieprzewidywane problemy z uruchomieniem nowej
     wersji, Kubernetes automatycznie przywróci jej poprzedni stan.
 
-- ****
+- **zarządzanie store**
+    umożliwia automatyczne montowanie zasobów systemowych bez względu czy to jest zasób sieciowy, lokalny
+    czy cloud-owy ( np. GCP, AWS, NFS, Gluster itp.)
+
 
 <a name="basic_architecture"></a>
 ### podstawowa architektura
@@ -53,10 +56,18 @@ aplikacji. Podstawowe zalety:
 <a name="addons"></a>
 - **addons**
 
-<a name="dns_addon"></a>
-    - **DNS**
+    jakis przykladowy tekst
 
 
+    - **DNS**<a name="dns_addon"></a>
+
+        kolejny przykladowy tekst
+
+
+    - **heapster**<a name="heapster"></a>
+
+
+    - **dashboard**<a name="dashboards"></a>
 
 
 <a name="node_components"></a>
@@ -67,3 +78,4 @@ aplikacji. Podstawowe zalety:
 
 <a name="kube_proxy"></a>
 - **kube-proxy**
+
