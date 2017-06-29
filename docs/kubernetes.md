@@ -32,6 +32,7 @@ aplikacji. Podstawowe zalety:
 <a name="basic_architecture"></a>
 ### podstawowa architektura
 
+![k8s basic architecture](../img/k8s_arch.png)
 
 <a name="cluster_components"></a>
 ### komponenty klastra
