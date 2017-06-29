@@ -11,9 +11,20 @@ aplikacji. Podstawowe zalety:
 - **self-healing** - samoczynnie restartuje kontenery/aplikacje, które znajdą ulegają "wykrzaczeniu" :),
     przenosi kontenery który znajdowały się na node-ie, który został nieoczekiwanie zrestartowany bądź
     w inny sposób nie jest operacyjny, ubija kontenery/aplikacje które nie odpowiadają na wcześniej zdefiniowane
-    health checki
+    health checki.
 
--
+- **horizontal scaling** - skaluje aplikacje horyzontalnie przy użyciu wiersza poleceń, graficznego interfejsu
+    a nawet przy użyciu automatycznego autoscaler-a, który może bazować na zużyciu CPU, pamięci bądź
+    ilości request-ów.
+
+- **service discovery i load balancing** - za pomocą wbudowanego serwera DNS oraz komponentów takich jak
+    `Service` z łątwością loadbalansuje ruch pomiędzy kontenerami.
+
+- **automatyczne rollout-y i rollback-i** - Kubernetes umożliwia aktualizację aplikacji bez konieczności
+    jej gaszenia, a jeżeli ta aktualizacja spowoduje jakieś nieprzewidywane problemy z uruchomieniem nowej
+    wersji, Kubernetes automatycznie przywróci jej poprzedni stan.
+
+- ****
 
 <a name="basic_architecture"></a>
 ### podstawowa architektura
