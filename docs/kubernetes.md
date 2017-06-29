@@ -3,7 +3,17 @@
 ### co to jest
 
 Jest to open-source-owy system do automatyzacji wdrażania, skalowania i zarządzania skonteneryzowanych
-aplikacji.
+aplikacji. Podstawowe zalety:
+
+- **automatic binpacking** - automatycznie przydziela aplikacje(kontenery) na node-y klastra bazując
+    na ich wymaganiach co do zasobów takich jak CPU, pamięć RAM oraz wielu innych.
+
+- **self-healing** - samoczynnie restartuje kontenery/aplikacje, które znajdą ulegają "wykrzaczeniu" :),
+    przenosi kontenery który znajdowały się na node-ie, który został nieoczekiwanie zrestartowany bądź
+    w inny sposób nie jest operacyjny, ubija kontenery/aplikacje które nie odpowiadają na wcześniej zdefiniowane
+    health checki
+
+-
 
 <a name="basic_architecture"></a>
 ### podstawowa architektura
@@ -18,22 +28,22 @@ aplikacji.
 
 
 <a name="api_server"></a>
-- kube-apiserver
+- **kube-apiserver**
 
 <a name="etcd"></a>
-- etcd
+- **etcd**
 
 <a name="kube_controller_manager"></a>
-- kube-controller-manager
+- **kube-controller-manager**
 
 <a name="kube_scheduler"></a>
-- kube-scheduler
+- **kube-scheduler**
 
 <a name="addons"></a>
-- addons
+- **addons**
 
 <a name="dns_addon"></a>
-    - DNS
+    - **DNS**
 
 
 
@@ -42,7 +52,7 @@ aplikacji.
 #### node components
 
 <a name="kubelet"></a>
-- kubelet
+- **kubelet**
 
 <a name="kube_proxy"></a>
-- kube-proxy
+- **kube-proxy**
