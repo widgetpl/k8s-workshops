@@ -1,9 +1,4 @@
-# Kubernetes
 
-### co to jest
-
-Jest to open-source-owy system do automatyzacji wdrażania, skalowania i zarządzania skonteneryzowanych
-aplikacji.
 
 
 ```
