@@ -1,6 +1,6 @@
 
 - [Docker - podstawy](./docs/docker.md)
-- [kubernetes](./docks/kubernetes.md)
+- [kubernetes](./docs/kubernetes.md)
     - [podstawowa architektura](./docs/kubernetes.md#basic_architecture)
     - [komponenty klastra](./docs/kubernetes.md#cluster_components)
         - [master components](./docs/kubernetes.md#master_components)
