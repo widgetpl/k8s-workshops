@@ -10,6 +10,8 @@
             - [kube-scheduler](./docs/kubernetes.md#kube_scheduler)
             - [addons](./docs/kubernetes.md#addons)
                 - [DNS](./docs/kubernetes.md#dns_addon)
+                - [heapster](./docs/kubernetes.md#heapster)
+                - [dashboard](./docs/kubernetes.md#dashboard)
         - [node componenets](./docs/kubernetes.md#node_components)
             - [kubelet](./docs/kubernetes.md#kubelet)
             - [kube-proxy](./docs/kubernetes.md#kube_proxy)
