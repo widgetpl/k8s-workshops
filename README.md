@@ -1,5 +1,9 @@
 
--
+- [Docker - podstawy](./docs/docker.md)
+- [kubernetes](./docks/kubernetes.md)
+    - [podstawowa architektura](./docks/kubernetes.md#basic_architecture)
+    - [komponenty klastra](./docks/kubernetes.md#cluster_components)
+        -
 - [instalacja](./docs/installation.md)
     - [minikube](./docs/minikube.md)
 - [operacje na klastrze](./docs/operations.md)

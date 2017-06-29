@@ -51,3 +51,8 @@ $ minikube stop
 Stopping local Kubernetes cluster...
 Machine stopped.
 ```
+
+### konfiguracja
+
+Istnieje możliwość konfiuguracji klastra uruchomionego za pomocą `minikube`-a, więcej informacji na
+ten temat można znaleźć w [repozytorium `minikube`-a](https://github.com/kubernetes/minikube/blob/master/docs/README.md).
