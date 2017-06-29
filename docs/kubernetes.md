@@ -37,13 +37,18 @@ aplikacji. Podstawowe zalety:
 <a name="cluster_components"></a>
 ### komponenty klastra
 
-
 <a name="master_components"></a>
 #### master components
 
+Komponenty mastera dostarczają elementy zarządzające całym klastrem, schedule-owanie, wykrywanie i odpowiadanie
+ na zdarzenia pojawiające się w klastrze ( uruchamianie pod-ów kiedy ilość replik nie jest zgodna z definicją
+zawartą w manifeście ).
 
 <a name="api_server"></a>
-- **kube-apiserver**
+- [**kube-apiserver**](https://kubernetes.io/docs/admin/kube-apiserver/) - dostarcza API klastra.
+    Jest front-endem dla większości komponentów klastra jak i innych plugin-ów. Dostarcza informacje
+    na temat wszystkich obiektów znajdujących się w klastrze.
+
 
 <a name="etcd"></a>
 - **etcd**
