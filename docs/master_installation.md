@@ -36,6 +36,13 @@ Po zainstalowaniu wymaganych paczek przechodzimy do ich konfiguracji:
     KUBELET_ARGS=""
     ```
 
+- konfiguracja Kubernetes-a
+
+    Należy wyedytować plik `/etc/kubernetes/config`:
+    ```
+    KUBE_MASTER="--master=http://192.168.56.105:8080"
+    ```
+
 następnie restartujemy wszystkie usługi:
 ```
 $ for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler kube-proxy kubelet docker flanneld; do systemctl restart $SERVICES; systemctl enable $SERVICES; systemctl status $SERVICES; done
