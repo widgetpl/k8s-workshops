@@ -15,6 +15,7 @@
         - [node componenets](./docs/kubernetes.md#node_components)
             - [kubelet](./docs/kubernetes.md#kubelet)
             - [kube-proxy](./docs/kubernetes.md#kube_proxy)
+    - [obiekty k8s](./docs/objects.md)
 - [instalacja](./docs/installation.md)
     - [minikube](./docs/minikube.md)
 - [operacje na klastrze](./docs/operations.md)
