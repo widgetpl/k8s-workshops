@@ -13,7 +13,7 @@ jeżeli usługa jest włączona to ją wyłączamy:
 $ systemctl stop firewalld
 $ systemctl disable firewalld
 ```
-następnie wryfikujemy status selinux-a:
+następnie weryfikujemy status selinux-a:
 ```
 $ getenforce
 ```
