@@ -1,0 +1,86 @@
+#cloud-config
+
+users:
+  - name: "pulse"
+    passwd: "$1$uJtnCKfA$2OtlB4ERE4s28V4zTGkHX1"
+    groups:
+      - "sudo"
+      - "docker"
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQUXNzcjM0HcJskEzZ0cH8yVH0BWXXWgBfoIgf/QC+0UQ9B7YUrH0ehi7dfMZdA0c1DiD895TbQiZNGW+pul83MN9VwqA8fAR6NsIVXFmWcqXVbykz2MkwZhYlDndYAet0fUAIojbfOMdi8nhllEJr+2ET294bpvxsUfBh6SXidqj7Y9QA2lVhyRdMpGc5y3D4CnQ1HonINfMQRoU/fZ/80R61NnG0zmIfJRFuV3TN5xVeIpQpGKqbT+kOCjSjvZkff4yopT1lSPl/l5Pv+II2lC0YgOkc9/OJ5pzxN94pri3Rc+8a2uzXIDiDKxELoGujtV/3UduajUuUPbYnHqCN pulse@Archlinux
+
+
+hostname: "192.168.1.145"
+manage_etc_hosts: "localhost"
+
+
+
+
+write_files:
+  - path: /etc/motd.d/pi.conf
+    content: |
+      etcd 1
+  - path: /etc/systemd/timesyncd.conf
+    content: |
+      [Time]
+      NTP=192.168.1.1
+
+
+
+  - path: /etc/systemd/network/10-eth.network
+    permissions: 0644
+    owner: root
+    content: |
+      [Match]
+      Name=eth0
+
+
+      [Network]
+      DNS=8.8.8.8
+      Address=192.168.1.145/24
+      Gateway=192.168.1.1
+coreos:
+  units:
+    - name: systemd-networkd.service
+      command: restart
+
+coreos:
+  units:
+    - name: settimezone.service
+      command: start
+      content: |
+        [Unit]
+        Description=Set the time zone
+
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-timezone Europe/Warsaw
+        RemainAfterExit=yes
+        Type=oneshot
+
+coreos:
+  locksmith:
+      endpoint: http://192.168.1.145:2379,http://192.168.1.146:2379,http://192.168.1.147:2379
+
+coreos:
+  update:
+    reboot-strategy: "etcd-lock"
+
+
+coreos:
+  etcd2:
+    advertise-client-urls: http://192.168.1.145:2379
+    initial-advertise-peer-urls: http://192.168.1.145:2380
+    listen-client-urls: http://192.168.1.145:2379,http://127.0.0.1:2379
+    listen-peer-urls: http://192.168.1.145:2380
+    initial-cluster-token: etcd-cluster-1
+    initial-cluster: infra0=http://192.168.1.145:2380,infra1=http://192.168.1.146:2380,infra2=http://192.168.1.147:2380
+    snapshot-count: 5000
+    heartbeat-interval: 100
+    election-timeout: 500
+    initial-cluster-state: new
+    name: infra0
+  units:
+    - name: etcd2.service
+      command: start
+    - name: fleet.service
+      command: start
