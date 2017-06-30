@@ -32,5 +32,5 @@ Po zainstalowaniu wymaganych paczek przechodzimy do ich konfiguracji:
 
 następnie restartujemy wszystkie usługi:
 ```
-$ for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler kube-proxy kubelet docker flanneld; do systemctl restart $SERVICES; systemctl enable $SERVICES; systemctl status $SERVICES; done
+$ for SERVICES in etcd kube-proxy kubelet docker flanneld; do systemctl restart $SERVICES; systemctl enable $SERVICES; systemctl status $SERVICES; done
 ```
