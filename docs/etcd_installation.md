@@ -32,8 +32,3 @@ cluster is healthy
 $ etcdctl member list
 ce2a822cea30bfca: name=default peerURLs=http://localhost:2380,http://localhost:7001 clientURLs=http://localhost:2379 isLeader=true
 ```
-
-na sam koniec dodajemy konfigurację sieci dla kontenerów, która będzie wykorzystywana przez `flannel`-a
-```
-etcdctl mk /atomic.io/network/config '{"Network":"172.17.0.0/16"}'
-```
