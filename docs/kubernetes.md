@@ -71,18 +71,11 @@ zawartą w manifeście ).
 <a name="addons"></a>
 - **addons**
 
-    jakis przykladowy tekst
+    - [**DNS**](https://kubernetes.io/docs/concepts/overview/components/#dns)<a name="dns_addon"></a> - umożliwia komunikację po nazwach FQDN wewnątrz klastra
 
+    - [**heapster**]()<a name="heapster"></a> - zbiera metryki na temat kontenerów
 
-    - **DNS**<a name="dns_addon"></a>
-
-        kolejny przykladowy tekst
-
-
-    - **heapster**<a name="heapster"></a>
-
-
-    - **dashboard**<a name="dashboards"></a>
+    - [**dashboard**](https://github.com/kubernetes/dashboard)<a name="dashboards"></a> - graficzcny interfejs do zarządzania klastrem
 
 
 <a name="node_components"></a>
