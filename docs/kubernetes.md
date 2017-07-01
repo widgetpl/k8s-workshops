@@ -77,7 +77,6 @@ zawartą w manifeście ).
 
     - [**dashboard**](https://github.com/kubernetes/dashboard)<a name="dashboards"></a> - graficzcny interfejs do zarządzania klastrem
 
-
 <a name="node_components"></a>
 #### node components
 

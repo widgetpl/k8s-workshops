@@ -25,10 +25,6 @@
     - [`kubectl` konfiguracja](./docs/operations.md#konfiguracja)
 
 
-
-
-
-
 vmki
 
 user/haslo - root/workshops
@@ -56,8 +52,6 @@ NETMASK=255.255.255.0
 GATEWAY=192.168.56.1
 ```
 
-
-
 config dla enp0s8:
 ```
 # cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
@@ -84,10 +78,3 @@ jeżeli nie ma dostępu do internetu sprawdzić i ewentualnie usunąć trase def
 ```
 # ip route del default via 192.168.56.1
 ```
-
-```
-yum update
-```
-
-
-https://severalnines.com/blog/installing-kubernetes-cluster-minions-centos7-manage-pods-services
