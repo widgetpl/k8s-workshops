@@ -1,0 +1,233 @@
+#cloud-config
+
+users:
+  - name: "pulse"
+    passwd: "$1$uJtnCKfA$2OtlB4ERE4s28V4zTGkHX1"
+    groups:
+      - "sudo"
+      - "docker"
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQUXNzcjM0HcJskEzZ0cH8yVH0BWXXWgBfoIgf/QC+0UQ9B7YUrH0ehi7dfMZdA0c1DiD895TbQiZNGW+pul83MN9VwqA8fAR6NsIVXFmWcqXVbykz2MkwZhYlDndYAet0fUAIojbfOMdi8nhllEJr+2ET294bpvxsUfBh6SXidqj7Y9QA2lVhyRdMpGc5y3D4CnQ1HonINfMQRoU/fZ/80R61NnG0zmIfJRFuV3TN5xVeIpQpGKqbT+kOCjSjvZkff4yopT1lSPl/l5Pv+II2lC0YgOkc9/OJ5pzxN94pri3Rc+8a2uzXIDiDKxELoGujtV/3UduajUuUPbYnHqCN pulse@Archlinux
+
+
+hostname: "192.168.1.160"
+# manage_etc_hosts: "localhost"
+
+
+
+write_files:
+  - path: /etc/motd.d/pi.conf
+    content: |
+      compute1
+  - path: /etc/systemd/timesyncd.conf
+    content: |
+      [Time]
+      NTP=192.168.1.1
+  - path: /etc/kubernetes/ssl/ca.pem
+    permissions: 0600
+    owner: root
+    content: |
+      -----BEGIN CERTIFICATE-----
+      MIIC9zCCAd+gAwIBAgIJAK0WNT+1Daw4MA0GCSqGSIb3DQEBCwUAMBIxEDAOBgNV
+      BAMMB2t1YmUtY2EwHhcNMTYxMDIyMTA1MjI5WhcNNDQwMzA5MTA1MjI5WjASMRAw
+      DgYDVQQDDAdrdWJlLWNhMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+      u+EL+unCS1FQNHmqbPns5LbgVMxXP4KB+WdKtIFg4aERCe993kcKh5FIOf0RZf1a
+      4+qKeL9NZs278dg4SwLjrLefn4/O3llV+RXSrEQ9/UgUvypqwVQzcO7eJwtKUH+n
+      e0pTW5MNSGRbVqZU9PzPZBIzM4j/cqmrgnvZI3aW3OURytE9vrSqTwVbh57Pywq4
+      kPFiarvoSWesmhrBCxbt8Ik3/ccfJOXVACwMZg+VXBzTkdQLKVQqrYZvSyMdVV60
+      2Vx2lR1XIFYxaR7+W2aP0sDrFbR0/MoXSyyg1DvTGfI3Ttl3nPwXhq1qX/Umjcqs
+      VxcJDsmWbIT/ovaCR9i4GwIDAQABo1AwTjAdBgNVHQ4EFgQU5Kv5HwGZ8301HA3W
+      ZLVCW4fADzUwHwYDVR0jBBgwFoAU5Kv5HwGZ8301HA3WZLVCW4fADzUwDAYDVR0T
+      BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEArvHeoXN975drxe/Qs88oHD1WexJd
+      WAIqIbZBtk0MsmfjAgsz/UwE/kbgw/+CYZ41oF4HQTBmDMd3Asiw5M1h9/JyYbI4
+      dNAxr5xAMLjCzk+4mFTle3qnIZWsGNx9XoBS0fZgRcMOObEElvh9haronS7nFCyX
+      l9i1yW78EHJaR4KBMKmdMKfwi4ZypwDjDTk0ES+QUZ254nzhiGl3GzuCKEc7MFRr
+      ZwrM3BGcU3La5KAbXq1uHTQ/2d0675OYTjlrRbUjBgqKsSHVZ331TX1/3H5BI1Gu
+      97NkHUC8EoV9swZi0qXZ+mFr6rlCm0lnxkpq8YpwvBoPlhTwuWmSdQFyjg==
+      -----END CERTIFICATE-----
+
+  - path: /etc/kubernetes/ssl/worker.pem
+    permissions: 0600
+    owner: root
+    content: |
+      -----BEGIN CERTIFICATE-----
+      MIIC2DCCAcCgAwIBAgIJAM1D0RUj1ZdoMA0GCSqGSIb3DQEBCwUAMBIxEDAOBgNV
+      BAMMB2t1YmUtY2EwHhcNMTYxMDIyMTEyMDQzWhcNMTcxMDIyMTEyMDQzWjAYMRYw
+      FAYDVQQDDA0xOTIuMTY4LjEuMTYwMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+      CgKCAQEAwTDmszjQfYKBjoBofuXr4QgP+ZHyz9w/xMl6aMtkAMVtyvwEdT9BE1nf
+      G5w4PH31JfzfvS2bOKrlD6/1vAYwIUYQspR4WMMYDUe5iJbyo1fIgGos7MT17Vtt
+      B+C2lsF0V80JUm5fX66YkAy/XPyHJr/1l9XRYAmJVJc3g20fdCZyHuW3unkEGew1
+      u9+OkHfyl8Ao6CGWQw/u620QDYEwmTlkCxfsXS8Loi/qiopsITXnT5k2y3r1lyRu
+      N5o0JGxM83doIQJABSMdEKA3n7qBoHgj0yUJT0Gn1UyP64Ww4XlSvQI9iLHC895r
+      XMf5zSl7TMC2JtNO65bs29TBvgTxiQIDAQABoyswKTAJBgNVHRMEAjAAMAsGA1Ud
+      DwQEAwIF4DAPBgNVHREECDAGhwTAqAGgMA0GCSqGSIb3DQEBCwUAA4IBAQCCsztj
+      X7i/6UCoBKeYOOUWE3aDQJON6nsvXCwAUD155JOTzAumRypIs11BBwb4YtbMO3hc
+      wjuV8QVCxRFZ5lgMaYX45WOZMIpUUztJRnpPmhNR9ruELGs/7G1gGDk9Bev03Gkl
+      7uXOZTnxPG2AhlUILoMNELnO/yokAQKZTsobo0P3OR8CfVi2zlOhAH47z7MYssxe
+      u8mfe/mOvcbf20v792LIUIcepfOypzhpmCV37nMIb7js9Khp6qpg+Jw321RR5xOU
+      ww/zG8F7PcODVvO2sCcWt3GpM0EGLI0uhr4ox/pZfnHz1Fc52x6o9zTh5EhrLLdB
+      NCxAV7vxOS6Qunyl
+      -----END CERTIFICATE-----
+
+  - path: /etc/kubernetes/ssl/worker-key.pem
+    permissions: 0600
+    owner: root
+    content: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEowIBAAKCAQEAwTDmszjQfYKBjoBofuXr4QgP+ZHyz9w/xMl6aMtkAMVtyvwE
+      dT9BE1nfG5w4PH31JfzfvS2bOKrlD6/1vAYwIUYQspR4WMMYDUe5iJbyo1fIgGos
+      7MT17VttB+C2lsF0V80JUm5fX66YkAy/XPyHJr/1l9XRYAmJVJc3g20fdCZyHuW3
+      unkEGew1u9+OkHfyl8Ao6CGWQw/u620QDYEwmTlkCxfsXS8Loi/qiopsITXnT5k2
+      y3r1lyRuN5o0JGxM83doIQJABSMdEKA3n7qBoHgj0yUJT0Gn1UyP64Ww4XlSvQI9
+      iLHC895rXMf5zSl7TMC2JtNO65bs29TBvgTxiQIDAQABAoIBACZ71kj3VVjbKXG4
+      lJhKts0x7PS7JRJQ/ob116OOeJJKwc9Amqa8ffsb2PzIBs/OC4qQsAUgU55bNJwG
+      Yj4dQXMvYN4iA0MzQdRLaGMUJqtxLiiefeqAZbjtkG+UTOsFCGcBGg1InUkTH6L6
+      Vxhv2YBXltWzKy0lWSz3noBYuX5KXZmmAdj8F8qmufTt23ozVadD9dgdJIuP8uyo
+      xa0DDh9+/UA3RTmy1g8UUZrHtOhQgLkK6f9LAnjYsUeMqwNpun8yuHZFQoL3zjCj
+      2kK3q9IvMCffb6AggbNkhbyc/BxL/oUQSJD2BV1ZyAwRMz3a/rfgRXsAU2I25Zy0
+      XC5qx70CgYEA6M0LoCPA2mjj84nQ+HF6J3M4aGOuxIp908JlqfKbDGM33Ngnm1N5
+      VsEMNoYwJ5kvXmQ9zdPu3ivt7577r37AWbTzLcSffTHto08flBS05nomtUjjIGk4
+      TlChva2bxSXxsBom0MybdFe6Pd0/kSplhVzLXLbHpFGtWrfCH0TMYAsCgYEA1HFf
+      MM54TLMArW0at3SwGqqbYPqsayZ4rs6Eox0tz5r97Mp9OHzVxcjL/y18piVw+UAn
+      rgbruxnPriTiyW9l6Ei1iFPrhVhjrBCRCMFcWOR9RYkl0cSjo67IpQAcTXrHGEB7
+      HGPzg4I3A7awZ96047QDSNzIfzH1LtjVEEVGzTsCgYAOI0Wtd/5iRTRyuc/jBqEw
+      fCLU1Bjs/qwdjBS4eW9JFU1zL/1XxX388sRXG1cZUIg750KJmXFMNMbCYplOUxhD
+      WmXaRbKZ28pevJNiXs+Nn6VyJPcGJN2yg9sOtdhb5K4Ez9HDpGlca2d4ElOl8Tkx
+      HC2Nd9wv8nXgqIA1fewbeQKBgCHiV1F8jRmGr4P50/oQ5YnLTm8gbGHGyBbxn5w4
+      qjbjvL6I6YIZ/yrFxSvVQH1rmWJYBjwupGi6TDK1dWq1luZ+ul2dLQKev38RQWDJ
+      HoabIxP1NRAJMiSIWz5eDyWYgKrwlfJISu3d1hKEkAxxLB7pdmCnvl7zQ+0N7qXi
+      ttFDAoGBAJPB7++rBF8mwppwbfeaQEtN9Q4Fs2CxgyM0AMQpQuAlqH0gOdkDdRHM
+      cfkmR69rtAll39HsjiMGX8SlA3xHyaMZ/o09Syw+hW3ltKMUCPfHL2gI68A1+9bM
+      acEJNu6undcJcrtQYtULSUkHfxqCV1jidejMOCB/zXE1q/XzvPfX
+      -----END RSA PRIVATE KEY-----
+
+
+  - path: /etc/kubernetes/manifests/kube-proxy.yaml
+    content: |
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: kube-proxy
+        namespace: kube-system
+      spec:
+        hostNetwork: true
+        containers:
+        - name: kube-proxy
+          image: quay.io/coreos/hyperkube:v1.5.6_coreos.0
+          command:
+          - /hyperkube
+          - proxy
+          - --master=https://192.168.1.150
+          - --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml
+          - --proxy-mode=iptables
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /etc/ssl/certs
+              name: "ssl-certs"
+            - mountPath: /etc/kubernetes/worker-kubeconfig.yaml
+              name: "kubeconfig"
+              readOnly: true
+            - mountPath: /etc/kubernetes/ssl
+              name: "etc-kube-ssl"
+              readOnly: true
+        volumes:
+          - name: "ssl-certs"
+            hostPath:
+              path: "/usr/share/ca-certificates"
+          - name: "kubeconfig"
+            hostPath:
+              path: "/etc/kubernetes/worker-kubeconfig.yaml"
+          - name: "etc-kube-ssl"
+            hostPath:
+              path: "/etc/kubernetes/ssl"
+  - path: /etc/kubernetes/worker-kubeconfig.yaml
+    content: |
+      apiVersion: v1
+      kind: Config
+      clusters:
+      - name: local
+        cluster:
+          certificate-authority: /etc/kubernetes/ssl/ca.pem
+      users:
+      - name: kubelet
+        user:
+          client-certificate: /etc/kubernetes/ssl/worker.pem
+          client-key: /etc/kubernetes/ssl/worker-key.pem
+      contexts:
+      - context:
+          cluster: local
+          user: kubelet
+        name: kubelet-context
+      current-context: kubelet-context
+
+
+
+  - path: /etc/systemd/network/10-eth.network
+    permissions: 0644
+    owner: root
+    content: |
+      [Match]
+      Name=eth0
+
+      [Network]
+      DNS=8.8.8.8
+      Address=192.168.1.160/24
+      Gateway=192.168.1.1
+
+
+coreos:
+  units:
+    - name: systemd-networkd.service
+      command: restart
+    - name: settimezone.service
+      command: start
+      content: |
+        [Unit]
+        Description=Set the time zone
+
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-timezone Europe/Warsaw
+        RemainAfterExit=yes
+        Type=oneshot
+    - name: kubelet.service
+      command: start
+      content: |
+        [Service]
+        ExecStartPre=/usr/bin/mkdir -p /etc/kubernetes/manifests
+        ExecStartPre=/usr/bin/mkdir -p /opt/cni/bin
+        ExecStartPre=/usr/bin/mkdir -p /etc/cni/net.d
+        ExecStartPre=/usr/bin/mkdir -p /var/log/containers
+        Environment=KUBELET_IMAGE_TAG=v1.5.6_coreos.0
+        Environment="RKT_RUN_ARGS=--uuid-file-save=/var/run/kubelet-pod.uuid \
+        --volume var-log,kind=host,source=/var/log \
+        --mount volume=var-log,target=/var/log \
+        --volume cni-bin,kind=host,source=/opt/cni/bin \
+        --mount volume=cni-bin,target=/opt/cni/bin \
+        --volume net-d,kind=host,source=/etc/cni/net.d \
+        --mount volume=net-d,target=/etc/cni/net.d"
+        ExecStart=/usr/lib/coreos/kubelet-wrapper \
+        --api-servers=https://192.168.1.150:443 \
+        --allow-privileged=true \
+        --config=/etc/kubernetes/manifests \
+        --hostname-override=192.168.1.160 \
+        --cluster-dns=10.3.0.10 \
+        --cluster-domain=cluster.local \
+        --kubeconfig=/etc/kubernetes/worker-kubeconfig.yaml \
+        --tls-cert-file=/etc/kubernetes/ssl/worker.pem \
+        --tls-private-key-file=/etc/kubernetes/ssl/worker-key.pem \
+        --maximum-dead-containers=2 \
+        --container-runtime=docker \
+        --network-plugin=cni \
+        --cni-bin-dir=/opt/cni/bin \
+        --cni-conf-dir=/etc/cni/net.d
+        ExecStop=-/usr/bin/rkt stop --uuid-file=/var/run/kubelet-pod.uuid
+        Restart=always
+        RestartSec=10
+        [Install]
+        WantedBy=multi-user.target
+
+  locksmith:
+      endpoint: http://192.168.1.145:2379
+  update:
+    reboot-strategy: "etcd-lock"
