@@ -15,6 +15,7 @@
         - [node componenets](./docs/kubernetes.md#node_components)
             - [kubelet](./docs/kubernetes.md#kubelet)
             - [kube-proxy](./docs/kubernetes.md#kube_proxy)
+    - [obiekty k8s](./docs/objects.md)
 - [instalacja](./docs/installation.md)
     - [instalacja bazy `etcd`](./docs/etcd_installation.md)
     - [instalacja master/admin node-a](./docs/master_installation.md)
