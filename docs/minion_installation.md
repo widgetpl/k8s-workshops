@@ -1,36 +1,101 @@
 # instalacja minion node-a
 
+Dodajemy oficjalne repozytorium Kubernetes-a:
+
 ```
-yum install docker kubernetes docker-logrotate flannel
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+```
+
+```
+yum install docker bash-completion kubelet-1.5.4-0.x86_64
 ```
 Po zainstalowaniu wymaganych paczek przechodzimy do ich konfiguracji:
 
-- `flannel`
+- `Docker`:
 
-    Należy wyedytować plik konfiguracyjny `/etc/sysconfig/flanneld`:
+    Zanim jeszcze uruchomimy usługę, edytujemy plik `/etc/docker/daemon.json`:
     ```
-    FLANNEL_ETCD_ENDPOINTS="http://192.168.56.101:2379"
+    {
+      "storage-driver": "overlay2",
+      "storage-opts": [
+        "overlay2.override_kernel_check=true"
+      ]
+    }
     ```
-
-- `kubelet`
-
-    Należy wyedytować plik konfiguracyjny `/etc/kubernetes/kubelet`:
+    Teraz możemy uruchomić usługę:
     ```
-    KUBELET_ADDRESS="--address=0.0.0.0"
-    KUBELET_PORT="--port=10250"
-    KUBELET_HOSTNAME="--hostname-override=192.168.56.105"
-    KUBELET_API_SERVER="--api-servers=http://192.168.56.105:8080"
-    KUBELET_ARGS=""
-    ```
-
-- konfiguracja Kubernetes-a
-
-    Należy wyedytować plik `/etc/kubernetes/config`:
-    ```
-    KUBE_MASTER="--master=http://192.168.56.105:8080"
+    $ systemctl start docker
+    $ systemctl enable docker
     ```
 
-następnie restartujemy wszystkie usługi:
-```
-$ for SERVICES in etcd kube-proxy kubelet docker flanneld; do systemctl restart $SERVICES; systemctl enable $SERVICES; systemctl status $SERVICES; done
-```
+- `kubelet`:
+
+    W tym celu należy wyedytować `Unit` `systemd` - `/etc/systemd/system/kubelet.service`:
+    ```
+    [Unit]
+    Description=kubelet: The Kubernetes Node Agent
+    Documentation=http://kubernetes.io/docs/
+
+    [Service]
+    ExecStart=/usr/bin/kubelet \
+        --address=0.0.0.0 \
+        --hostname-override=192.168.56.102 \
+        --api-servers=http://192.168.56.105:8080 \
+        --config=/etc/kubernetes/manifests \
+        --allow-privileged=true \
+        --cluster-dns=10.254.0.10 \
+        --cluster-domain=cluster.local \
+        --network-plugin=cni \
+        --network-plugin-dir=/etc/cni/net.d \
+        --cni-bin-dir=/opt/cni/bin \
+        --v=4
+    Restart=always
+    StartLimitInterval=0
+    RestartSec=10
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+Poniższe komponenty klastra są konfigurowane jako kontenery i wszystkie manifesty umieszczamy
+w katalogu `/etc/kubernetes/manifests` ze względu na konfigurację `kubeleta`.
+
+- `kube-proxy`:
+
+    Tworzymy plik `proxy.yaml`:
+    ```
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: kube-proxy
+      namespace: kube-system
+    spec:
+      hostNetwork: true
+      containers:
+      - name: kube-proxy
+        image: gcr.io/google-containers/hyperkube-amd64:v1.5.4
+        command:
+        - /hyperkube
+        - proxy
+        - --master=http://192.168.56.105:8080
+        - --proxy-mode=iptables
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /etc/ssl/certs
+          name: ssl-certs-host
+          readOnly: true
+      volumes:
+      - hostPath:
+          path: /usr/share/ca-certificates
+        name: ssl-certs-host
+    ```

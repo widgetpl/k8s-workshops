@@ -48,7 +48,7 @@ Po zainstalowaniu wymaganych paczek przechodzimy do ich konfiguracji:
     [Service]
     ExecStart=/usr/bin/kubelet \
         --address=0.0.0.0 \
-        --hostname-override=192.168.56.102 \
+        --hostname-override=192.168.56.105 \
         --api-servers=http://192.168.56.105:8080 \
         --config=/etc/kubernetes/manifests \
         --allow-privileged=true \
@@ -137,7 +137,7 @@ w katalogu `/etc/kubernetes/manifests` ze względu na konfigurację `kubeleta`.
       hostNetwork: true
       containers:
       - name: kube-controller-manager
-        image: quay.io/coreos/hyperkube:v1.5.6_coreos.0
+        image: gcr.io/google-containers/hyperkube-amd64:v1.5.4
         command:
         - /hyperkube
         - controller-manager
@@ -183,7 +183,7 @@ w katalogu `/etc/kubernetes/manifests` ze względu na konfigurację `kubeleta`.
       hostNetwork: true
       containers:
       - name: kube-proxy
-        image: quay.io/coreos/hyperkube:v1.5.6_coreos.0
+        image: gcr.io/google-containers/hyperkube-amd64:v1.5.4
         command:
         - /hyperkube
         - proxy
@@ -215,7 +215,7 @@ w katalogu `/etc/kubernetes/manifests` ze względu na konfigurację `kubeleta`.
       hostNetwork: true
       containers:
       - name: kube-scheduler
-        image: quay.io/coreos/hyperkube:v1.5.6_coreos.0
+        image: gcr.io/google-containers/hyperkube-amd64:v1.5.4
         command:
         - /hyperkube
         - scheduler
@@ -228,11 +228,7 @@ w katalogu `/etc/kubernetes/manifests` ze względu na konfigurację `kubeleta`.
             port: 10251
           initialDelaySeconds: 15
           timeoutSeconds: 1
-```
-
-
-
-
+    ```
 
 ### generowanie certyfikatów
 
@@ -279,11 +275,13 @@ Wygenerowane certyfikaty przenosimy do:
 - `/etc/kubernetes/ssl`
 
     ```
+    $ mkdir -p /etc/kubernetes/ssl
     $ cp * /etc/kubernetes/ssl/
     ```
 
 - `/etc/kubernetes/ca`
 
     ```
-    $ cp ca.pem /etc/kubernetes/ssl/
+    $ mkdir -p /etc/kubernetes/ca
+    $ cp ca.pem /etc/kubernetes/ca/
     ```

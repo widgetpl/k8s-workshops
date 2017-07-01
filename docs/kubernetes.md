@@ -51,13 +51,22 @@ zawartą w manifeście ).
 
 
 <a name="etcd"></a>
-- **etcd**
+- [**etcd**](https://kubernetes.io/docs/concepts/overview/components/#etcd) - jest to baza danych
+    Kubernetes-a gdzie są przetrzymywane dane na temat aktualne stanu całego klastra
 
 <a name="kube_controller_manager"></a>
-- **kube-controller-manager**
+- [**kube-controller-manager**]() - jest to zbiór procesów kontrolujących podstawowe elementy klastra:
+    - node controller - sprawdza status node-ów i informuje o jego zmianach apiserver
+    - replication controller - jest odpowiedzialny za utrzymywanie odpowiedniej ilości replik każdego
+    replication controller-a w klastrze
+    - endpoint controller - jest odpowiedzialny za prawidłowe łączenie ze sobą service-ów z podami
+    bazując na labelk-ach
+    - service account i token controllers - tworzy standardowe konta i tokeny dostępu do serwera API dla
+    namespace-ów
 
 <a name="kube_scheduler"></a>
-- **kube-scheduler**
+- [**kube-scheduler**](https://kubernetes.io/docs/concepts/overview/components/#kube-scheduler) - jest
+    odpowiedzialny za przypisywanie now utworzonych pod-ów do node-ów klastra
 
 <a name="addons"></a>
 - **addons**
