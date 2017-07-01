@@ -89,8 +89,16 @@ zawartą w manifeście ).
 #### node components
 
 <a name="kubelet"></a>
-- **kubelet**
+- [**kubelet**](https://kubernetes.io/docs/concepts/overview/components/#kubelet) - jest procesem działającym na każdym nodzie klastra i oczekuje informacji od schedulera
+    na temat nowych podów. Do jego zadań należy:
+
+    - montowanie volumen-ów do poda
+    - pobieranie secret-ów poda
+    - uruchomienia kontenera za pomocą zdefiniowanego środowiska uruchomieniowego dla kontenerów
+    - wykonywanie tzw. livenessprobe-ów kontenerów
+    - zwracanie informacji na temat statusu pod-ów oraz node-ów do klastra
 
 <a name="kube_proxy"></a>
-- **kube-proxy**
+- **kube-proxy** - zapewnia łączność sieciową wewnątrz klastra. W przypadku korzystania z iptables-ów
+    generuje odpowiednie wpisy w systemowych ipteblsach.
 
