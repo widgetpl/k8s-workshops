@@ -66,7 +66,7 @@ zawartą w manifeście ).
 
 <a name="kube_scheduler"></a>
 - [**kube-scheduler**](https://kubernetes.io/docs/concepts/overview/components/#kube-scheduler) - jest
-    odpowiedzialny za przypisywanie now utworzonych pod-ów do node-ów klastra
+    odpowiedzialny za przypisywanie nowo utworzonych pod-ów do node-ów klastra
 
 <a name="addons"></a>
 - **addons**
